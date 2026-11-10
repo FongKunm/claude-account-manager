@@ -1,0 +1,56 @@
+Claude 换号台 · macOS
+
+macOS 使用手动退出和按完整会话 ID 恢复的流程。批量退出、后台回收、原终端自动恢复和被动额度上报目前仅在 Windows 提供。
+手动额度查询代码已改为独立原生 CLI 的短请求，不再调用旧 OAuth usage/profile。
+只读有效 accessToken，不复制 refreshToken、不续期；查询完成或失败会回收独立进程组。
+
+界面与 Windows 版使用同一份 React 前端。数据保存在：
+~/Library/Application Support/ClaudeAccountManager
+令牌由本机钥匙串保存的独立密钥加密，不放进 OneDrive。
+
+首次安装终端入口：
+在包含源码的目录运行 bash scripts/macos.sh install
+然后在你原来已打开的 zsh / bash 终端执行一次：
+source "$HOME/Library/Application Support/ClaudeAccountManager/terminal.sh"
+以后每次在换号台切换账号，再运行 claude 即可读取新选择，不用重开终端。
+这个选择包含“账号令牌 + 该账号绑定的代理端口”。例如旧 A 对话用 18001，
+切到 B 后新对话用 B + 18002；旧 A 对话仍保持 A + 18001。
+启动器只给新进程传入令牌和代理，不改父终端、launchctl 或共享 settings.json。
+代理还通过该进程的 --settings 内联参数固定，普通配置热更新也不会改掉它。
+只安装 .app、或第一次切号，并不能自动修改一个早已运行的 shell 的函数。
+新开的 zsh / bash 终端会自动加载；终端使用 -f / --norc / --noprofile
+或其他自定义 shell 时，需要自行 source 上面的文件。
+
+当前已有 Claude 对话也要换号：
+先在 Claude 中 /stop 停止后台会话；再在原终端 claude --resume 选回它。
+/exit 可能仅断开窗口，旧账号的后台会话仍在运行。
+换号台不会强制停止其他正在运行的对话。
+
+添加、切换、查询用量、用切号入口启动 Claude，都先核对该号的固定出口。
+代理必须运行在这台 Mac 上。沿用原账号固定 IP，不要因换电脑改出口。
+普通登录的实际 Claude 请求使用原有配置；换号台的普通登录查询取 Claude 设置里的
+代理（未设置才用 http://127.0.0.1:7897），首次核对后绑定出口。
+不要在 settings、shell 或项目里叠加其他 API key 或 OAuth token。
+普通配置里的代理由本进程固定设置覆盖；托管策略冲突时报错，不绕过策略。
+每个本机端口仍须在代理软件中固定出口；换号台不改 Clash 的节点或路由。
+VS Code / Cursor 的集成终端使用 zsh / bash 时同样适用。
+直接由 IDE 插件启动的 Claude 不经过 shell 函数，不宣称已被切换。
+
+普通登录：只读默认 Claude Code 钥匙串；若该条目不存在，读取官方 CLI 的
+~/.claude/.credentials.json 回退文件。拒绝访问钥匙串时不会改读旧文件。
+换号台不刷新、写回或删除 Claude Code 的登录凭据，不搬运 ~/.claude，
+插件、记忆、MCP、权限和钩子继续使用原来的配置。
+首次读取钥匙串可能由 macOS 请求授权；源码重新编译后可能再次询问。
+
+CPA JSON：在账号的 ⋯ 菜单中导出，普通登录导出 AT/RT，setup token 仅导出 AT。
+文件包含完整凭据，默认在本机数据目录 cpa-exports 下；不要放云同步目录。
+两种导出仍默认停用并设置阻断代理。在 CPA 里核对固定出口后再启用。
+普通登录的 RT 若同时由 CPA 和本机 CLI 续期，仍可能使其中一端登录失效。
+
+卸载终端集成：
+"$HOME/Library/Application Support/ClaudeAccountManager/bin/cam-launcher" --uninstall-hooks
+只移除本程序标记块并切回普通登录，不删除账号数据和用户原来的 rc 配置。
+当前 shell 的函数仍可正常转交普通登录；也可 unfunction claude（zsh）
+或 unset -f claude（bash）立即恢复官方 claude 的路径解析。
+
+Windows 的 DPAPI 加密数据库不能直接复制到 Mac 使用；请重新添加 setup token。

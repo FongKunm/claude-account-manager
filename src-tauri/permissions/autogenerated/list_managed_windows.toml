@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-list-managed-windows"
+description = "Enables the list_managed_windows command without any pre-configured scope."
+commands.allow = ["list_managed_windows"]
+
+[[permission]]
+identifier = "deny-list-managed-windows"
+description = "Denies the list_managed_windows command without any pre-configured scope."
+commands.deny = ["list_managed_windows"]

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-focus-managed-window"
+description = "Enables the focus_managed_window command without any pre-configured scope."
+commands.allow = ["focus_managed_window"]
+
+[[permission]]
+identifier = "deny-focus-managed-window"
+description = "Denies the focus_managed_window command without any pre-configured scope."
+commands.deny = ["focus_managed_window"]

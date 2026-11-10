@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main",
+  "description": "Local main window only. No shell, filesystem, HTTP or dialog plugin access.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-start-dragging",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "core:window:allow-is-maximized",
+    "allow-edit-card", "allow-list-managed-windows", "allow-focus-managed-window",
+    "allow-get-state", "allow-add-account", "allow-update-account", "allow-replace-token",
+    "allow-delete-account", "allow-switch-to", "allow-use-normal",
+    "allow-preview-switch", "allow-refresh-switch", "allow-execute-switch", "allow-get-switch-progress", "allow-retry-restore",
+    "allow-check-usage", "allow-check-normal-usage", "allow-detect-exit",
+    "allow-check-network", "allow-export-cpa", "allow-open-data-folder", "allow-open-help",
+    "allow-begin-normal-login", "allow-get-normal-login", "allow-cancel-normal-login"
+  ]
+}

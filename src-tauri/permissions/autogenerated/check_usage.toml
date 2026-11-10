@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-check-usage"
+description = "Enables the check_usage command without any pre-configured scope."
+commands.allow = ["check_usage"]
+
+[[permission]]
+identifier = "deny-check-usage"
+description = "Denies the check_usage command without any pre-configured scope."
+commands.deny = ["check_usage"]

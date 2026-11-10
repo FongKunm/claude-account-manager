@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-replace-token"
+description = "Enables the replace_token command without any pre-configured scope."
+commands.allow = ["replace_token"]
+
+[[permission]]
+identifier = "deny-replace-token"
+description = "Denies the replace_token command without any pre-configured scope."
+commands.deny = ["replace_token"]

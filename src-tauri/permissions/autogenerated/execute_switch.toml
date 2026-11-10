@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-execute-switch"
+description = "Enables the execute_switch command without any pre-configured scope."
+commands.allow = ["execute_switch"]
+
+[[permission]]
+identifier = "deny-execute-switch"
+description = "Denies the execute_switch command without any pre-configured scope."
+commands.deny = ["execute_switch"]

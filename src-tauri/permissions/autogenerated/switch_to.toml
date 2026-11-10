@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-switch-to"
+description = "Enables the switch_to command without any pre-configured scope."
+commands.allow = ["switch_to"]
+
+[[permission]]
+identifier = "deny-switch-to"
+description = "Denies the switch_to command without any pre-configured scope."
+commands.deny = ["switch_to"]
